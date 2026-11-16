@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Decathlon Việt Nam - Thể thao cho mọi người</title>
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.5;
+      color: #1a1a1a;
+      background-color: #f5f7fa;
+    }
+
+    img, video {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ========== HEADER ========== */
+    .header {
+      background-color: #001e36;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo a {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #fff;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+
+    .nav a:hover {
+      opacity: 1;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-search,
+    .btn-cart {
+      font-size: 1.2rem;
+      color: #fff;
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-search:hover,
+    .btn-cart:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -8px;
+      background: #e30613;
+      color: #fff;
+      font-size: 0.7rem;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border: 2px solid #001e36;
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      background-color: #0a2540;
+      padding: 24px 0 32px;
+    }
+
+    .hero-inner {
+      display: flex;
+      gap: 20px;
+      align-items: stretch;
+      min-height: 420px;
+    }
+
+    /* Banner bên trái */
+    .hero-banner {
+      flex: 1.7;
+      background: linear-gradient(135deg, #0072c6 0%, #001e36 100%);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .hero-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=900&h=500&fit=crop") center/cover no-repeat;
+      opacity: 0.25;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      max-width: 420px;
+    }
+
+    .banner-tag {
+      display: inline-block;
+      background: #e30613;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .banner-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .banner-desc {
+      font-size: 1.05rem;
+      opacity: 0.95;
+      margin-bottom: 24px;
+    }
+
+    /* Video bên phải */
+    .hero-video {
+      flex: 1;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 320px;
+    }
+
+    .video-controls {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 2;
+    }
+
+    .btn-video-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .btn-video-toggle:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .video-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 24px 16px 12px;
+      text-align: center;
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+    }
+
+    .btn-primary {
+      background: #e30613;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #c00510;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(227, 6, 19, 0.35);
+    }
+
+    .btn-add {
+      width: 100%;
+      background: #0072c6;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-add:hover {
+      background: #005a9e;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 114, 198, 0.18);
+    }
+
+    .btn-add.is-added {
+      background: #1f9d61;
+      box-shadow: 0 8px 18px rgba(31, 157, 97, 0.18);
+    }
+
+    .btn-add.is-added:hover {
+      background: #178652;
+    }
+
+    /* ========== PRODUCTS ========== */
+    .products {
+      padding: 48px 0 64px;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+      color: #001e36;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #5a6a7a;
+      margin-bottom: 36px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #f0f2f5;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-info {
+      padding: 16px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+      line-height: 1.35;
+    }
+
+    .product-price {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #e30613;
+      margin-bottom: 14px;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+      background: #001e36;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 992px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .banner-title {
+        font-size: 2rem;
+      }
+      .hero-inner {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+      .hero-inner {
+        flex-direction: column;
+        min-height: auto;
+        gap: 16px;
+      }
+      .hero-banner {
+        min-height: 280px;
+        padding: 28px 24px;
+      }
+      .banner-title {
+        font-size: 1.7rem;
+      }
+      .banner-desc {
+        font-size: 0.95rem;
+      }
+      .product-video {
+        min-height: 220px;
+      }
+      .product-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .section-title {
+        font-size: 1.45rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+      .header-inner {
+        height: 56px;
+      }
+      .logo a {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="#">DECATHLON</a>
+      </div>
+      <nav class="nav">
+        <a href="#products">Sản phẩm</a>
+        <a href="#promo">Khuyến mãi</a>
+        <a href="#">Cửa hàng</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-search" aria-label="Tìm kiếm">🔍</button>
+        <button class="btn-cart" aria-label="Giỏ hàng">🛒 <span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero: Banner + Video -->
+  <section class="hero" id="promo">
+    <div class="container hero-inner">
+      <!-- Banner khuyến mãi -->
+      <div class="hero-banner">
+        <div class="banner-content">
+          <span class="banner-tag">Ưu đãi đặc biệt</span>
+          <h1 class="banner-title">Càng mua càng giảm</h1>
+          <p class="banner-desc">Mua từ 2 sản phẩm giảm thêm 15%. Áp dụng đến 20/11.</p>
+          <a href="#products" class="btn btn-primary">Mua ngay</a>
+        </div>
+      </div>
+
+      <!-- Video sản phẩm đang sử dụng -->
+      <div class="hero-video">
+        <video
+          class="product-video"
+          muted
+          loop
+          playsinline
+          poster="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=400&fit=crop"
+          aria-label="Video sản phẩm thể thao đang được sử dụng">
+          <source src="https://cdn.coverr.co/videos/coverr-a-man-running-on-a-track-5626/1080p.mp4" type="video/mp4">
+          Trình duyệt của bạn không hỗ trợ video.
+        </video>
+        <div class="video-controls">
+          <button class="btn-video-toggle" aria-label="Tạm dừng / Phát video">⏸</button>
+        </div>
+        <p class="video-caption">Sản phẩm đang được vận động viên sử dụng thực tế</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Khu vực sản phẩm -->
+  <section class="products" id="products">
+    <div class="container">
+      <h2 class="section-title">Sản phẩm nổi bật</h2>
+      <p class="section-subtitle">Khám phá các sản phẩm thể thao được yêu thích</p>
+
+      <div class="product-grid">
+        <!-- Sản phẩm 1 -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop" alt="Giày chạy bộ nam">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Giày chạy bộ Kiprun KS500</h3>
+            <p class="product-price">1.299.000 ₫</p>
+            <button class="btn btn-add">Thêm vào giỏ</button>
+          </div>
+        </article>
+
+        <!-- Sản phẩm 2 -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop" alt="Áo thun thể thao">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Áo thun thể thao nam Domyos</h3>
+            <p class="product-price">299.000 ₫</p>
+            <button class="btn btn-add">Thêm vào giỏ</button>
+          </div>
+        </article>
+
+        <!-- Sản phẩm 3 -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&h=400&fit=crop" alt="Balo leo núi">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Balo leo núi 20L Forclaz</h3>
+            <p class="product-price">599.000 ₫</p>
+            <button class="btn btn-add">Thêm vào giỏ</button>
+          </div>
+        </article>
+
+        <!-- Sản phẩm 4 -->
+        <article class="product-card">
+          <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1571902943202-507c274bdf25?w=400&h=400&fit=crop" alt="Dây kháng lực">
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Dây kháng lực tập gym 15kg</h3>
+            <p class="product-price">199.000 ₫</p>
+            <button class="btn btn-add">Thêm vào giỏ</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Decathlon Việt Nam – Bài tập cải tiến giao diện (HTML5 + CSS3)</p>
+    </div>
+  </footer>
+
+  <!-- Script điều khiển video (thuần JS, không dùng thư viện) -->
+  <script>
+    const video = document.querySelector('.product-video');
+    const btnToggle = document.querySelector('.btn-video-toggle');
+    const cartCount = document.querySelector('.cart-count');
+    const addButtons = document.querySelectorAll('.btn-add');
+
+    let productCount = 0;
+
+    if (cartCount) {
+      cartCount.textContent = String(productCount);
+    }
+
+    addButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        productCount += 1;
+
+        if (cartCount) {
+          cartCount.textContent = String(productCount);
+        }
+
+        if (!button.classList.contains('is-added')) {
+          button.classList.add('is-added');
+          const originalText = button.textContent;
+          button.textContent = 'Đã thêm';
+
+          window.setTimeout(function() {
+            button.classList.remove('is-added');
+            button.textContent = originalText;
+          }, 900);
+        }
+      });
+    });
+
+    if (video && btnToggle) {
+      video.play().catch(function() {});
+
+      btnToggle.addEventListener('click', function() {
+        if (video.paused) {
+          video.play();
+          btnToggle.textContent = '⏸';
+          btnToggle.setAttribute('aria-label', 'Tạm dừng video');
+        } else {
+          video.pause();
+          btnToggle.textContent = '▶';
+          btnToggle.setAttribute('aria-label', 'Phát video');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
